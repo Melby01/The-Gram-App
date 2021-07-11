@@ -23,12 +23,12 @@ def register(request):
 
 def search_results(request):
     
-    if 'user' in request.GET and request.GET["user"]:
-        search_term = request.GET.get("user")
+    if 'image' in request.GET and request.GET["image"]:
+        search_term = request.GET.get("image")
         searched_user = Image.search_by_name(search_term)
         message = f"{search_term}"
 
-        return render(request, 'all-gram/search.html',{"message":message,"user": searched_user})
+        return render(request, 'all-gram/search.html',{"message":message,"name": searched_user})
 
     else:
         message = "You haven't searched for any term"

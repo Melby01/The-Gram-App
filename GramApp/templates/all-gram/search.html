@@ -3,8 +3,8 @@
 <div class="container">
 
   <div class="row">
-    {% if user%}
-      <h2>Found searched term {{message}}</h2>
+    {% if images %}
+      <h2>Found {{ images|length }} searched term {{message}}</h2>
     {% else %}
       <h2> Found 0 results for the search term {{message}}</h2>
     {% endif %}
