@@ -24,3 +24,22 @@ class tags(models.Model):
     
     def __str__(self):
         return self.name
+    
+class Comment(models.Model):
+    comment = models.TextField(blank=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ForeignKey(Image, on_delete=models.CASCADE )
+    pub_date = models.DateTimeField(auto_now_add=True)
+    
+    def save_comment(self):
+        self.save()
+        
+    def delete_comment(self):
+        self.delete()
+        
+    @classmethod
+    def update_comment(cls, id, value):
+        cls.objects.filter(id=id).update(name = value)
+        
+    def __str__(self):
+        return self.comment  
