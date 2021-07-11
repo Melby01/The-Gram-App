@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME':  'gram',
         'USER':  'moringaaccess',
-        'PASSWORD': '',
+        'PASSWORD': 'Access',
         
     }
 }
