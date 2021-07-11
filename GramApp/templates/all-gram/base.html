@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="{% static 'css/basegram.css' %}">
 </head>
 <body>
+    {% include "navbar.html"%}
     {% block content %} <h1 class='text-center'>  {{date|date:"l d-F Y"}}</h1> {%endblock%}
 
     {% block scripts %}
