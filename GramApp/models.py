@@ -19,6 +19,8 @@ class Image(models.Model):
     def __str__(self):
         return self.content
 
-    @property
-    def number_of_comments(self):
-        return Comment.objects.filter(post_connected=self).count()
+class tags(models.Model):
+    name = models.CharField(max_length = 30)
+    
+    def __str__(self):
+        return self.name
