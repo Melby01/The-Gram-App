@@ -8,3 +8,7 @@ def welcome(request):
 def login(request):
     context = {}
     return render(request, 'all-gram//login.html', context)
+
+def register(request):
+    context = {}
+    return render(request, 'all-gram/register.html', context)
