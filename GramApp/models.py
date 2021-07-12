@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Image(models.Model):
+    Images_image = models.ImageField(upload_to = 'GramApp/')
     name = models.CharField(max_length =60)
     caption = models.TextField(max_length=300,null=True)
     pub_date = models.DateTimeField(auto_now_add=True)
