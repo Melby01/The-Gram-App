@@ -49,6 +49,7 @@ class Profile(models.Model):
     photo = models.ImageField(upload_to = 'images/')
     bio = models.CharField(max_length =200)
     name = models.OneToOneField(User,on_delete=models.CASCADE)
+    following = models.ManyToManyField(User,blank=True,related_name='follow')
 
 
     def save_profile(self):
