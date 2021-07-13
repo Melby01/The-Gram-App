@@ -47,7 +47,7 @@ class Comment(models.Model):
         return self.comment  
     
 class Profile(models.Model):
-    photo = models.ImageField(upload_to = 'images/')
+    Image = models.ImageField(upload_to = 'images/')
     bio = models.CharField(max_length =200)
     name = models.OneToOneField(User,on_delete=models.CASCADE)
     following = models.ManyToManyField(User,blank=True,related_name='follow')
@@ -62,7 +62,7 @@ class Profile(models.Model):
     @classmethod
     def search_by_name(cls,search_term):
         news = cls.objects.filter(title__icontains=search_term)
-        return photo
+        return Image
     
     def __str__(self):
         return self.bio 
