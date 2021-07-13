@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '8e*@04c@=4v3popo24et53ml#y1k+#!@$zft)f_h+$9egaq=n9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True)
+DEBUG =  True
 ALLOWED_HOSTS =  []
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'GramApp',
     'bootstrap3',
+    'tinymce'
     
 ]
 
