@@ -1,0 +1,41 @@
+{%extends 'all-gram/base.html'%}
+{% load bootstrap3 %}
+{% block content %} 
+{{ block.super}}
+
+<div class="container">
+
+  <!-- Looping through news   -->
+  {% for gramm_item in gramm %}
+
+  <div class="row">
+    <!-- displaying News articles -->
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <h2 class="text-center"> {{ gramm_item.name }} </h2>
+    </div>
+    <!--Display news Article images  -->
+    <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <img src="{{gramm_item.Images_image.url}}" class="img-responsive w-100 btn btn-outline-info" alt="image">
+      </div>
+    </div>
+  </div>
+  <!-- Looping through news end   -->
+<div class="container-fluid">
+
+  <form  action="{%url 'instaToday'%}" method="post">
+    {%csrf_token%}
+
+    {% bootstrap_form letterForm layout='inline' %}
+    <input type="submit" value="Subscribe">
+  </form>
+</div>
+  {% empty %}
+  <div class="row">
+    <h2 class="text-center">There are no instas</h2>
+  </div>
+  {% endfor %}
+
+</div>
+
+{% endblock %}
