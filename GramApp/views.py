@@ -110,7 +110,7 @@ def search_results(request):
         return render(request, 'all-ig/search.html', {"message":message, "images":searched_images})
     elif 'result' in request.GET and request.GET["result"]:
         search_term = request.GET.get("result")
-        searched_images = Picture.search_by_author(search_term)
+        searched_images = .search_by_author(search_term)
         message = f"{search_term}"    
 
         return render(request, 'all-ig/search.html', {"message":message, "images":searched_images})
