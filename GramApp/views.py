@@ -63,7 +63,7 @@ def insta_today(request):
             HttpResponseRedirect('insta_today')
     else:
         form = GrammLetterForm()
-    return render(request, 'all-gramm/today-gramm.html', {"date": date,"letterForm":form})
+    return render(request, 'all-gram/today-gramm.html', {"date": date,"letterForm":form})
 
 def convert_dates(dates):
     
@@ -92,8 +92,8 @@ def past_days_insta(request,past_date):
         </html>
             '''
     if date == dt.date.today():
-        return redirect(news_of_day)    
-    return render(request, 'all-gramm/past-gramm.html', {"date": date})
+        return redirect(insta_today)    
+    return render(request, 'all-gram/past-gram.html', {"date": date})
 def search_results(request):
     
     if 'image' in request.GET and request.GET["image"]:
@@ -101,11 +101,11 @@ def search_results(request):
         searched_images = Image.search_by_name(search_term)
         message = f"{search_term}"
 
-        return render(request, 'all-images/search.html',{"message":message,"images": searched_images})
+        return render(request, 'all-gram/search.html',{"message":message,"images": searched_images})
 
     else:
         message = "You haven't searched for any term"
-        return render(request, 'all-gramm/search.html',{"message":message})
+        return render(request, 'all-gram/search.html',{"message":message})
 
 
 @login_required(login_url='/accounts/login/')  
