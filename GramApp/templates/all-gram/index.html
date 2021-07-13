@@ -1,43 +1,66 @@
+{%extends 'all-gramm/base.html'%}
+ {% load bootstrap3 %}
+  {% block content %}
 
-{%extends 'all-gram/base.html'%}
-{% load bootstrap3 %}
-{% block content %}
-{{ block.super}}
 <div class="container">
+  <div class="row">
     <div class="row">
-        <div class="row">
-            <div class="col-md-2">
-            </div>
-            <div class="col-md-7">
-                <!-- Looping through images   -->
-                {% for image in images %}
-                <div class="card mb-3 card1">
-                    <div class="row">
-
-                        <img src="{{image.image.url}}" class="card-img-top" alt="{{image.author}}" height="500px"
-                            width="450px">
-                        <div class="">
-                            <li class="list-group-item">
-                                <a href="{%url 'comments' %}"><i class="far fa-comment">comment</i>{{comments}}</a>
-                            </li>
-                        </div>
-
-                        <div class="card-body">
-                            <h5 class="card-title"></h5>
-                            <p style="font-size:20px;" class="card-text">Author:{{image.author}}</p>
-                            <p style="font-size:20px;">Caption:{{ image.content }}</p>
-                            <p style="font-size:20px;">likes:{{ image.likes }}</p>
-                            <p style="font-size:20px;">Dislikes:{{ image.dislikes }}</p>
-                        </div>
-                    </div>
-                </div><br><br>
-                {% empty %}
-                <div class="row">
-                    <h2 class="text-center">There No Image Items</h2>
+      <div class="col-md-2"></div>
+      <div class="col-md-7">
+        <!-- Looping through images   -->
+        {% for image in images %}
+        <div class="card mb-3 card1">
+          <div class="row">
+            <div class="row">
+              <div class="col-md-1">
+                <div class="card-body avat">
                 </div>
-                {% endfor %}
+              </div>
             </div>
+            <img src="{{image.Images_image.url}}" class="card-img-top" alt="{{image.Images_image}}"height="500px" width="400px"/>
+            <div class="">
+              <li class="list-group-item">
+                <a href="{%url 'new_comment'%}"
+                  ><i class="far fa-comment">comment</i>{{comments}}</a>
+              </li>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <p class="card-text">Authored by;{{image.author}}</p>
+              <p class="card-text">{{image.caption}}</p>
+              <!-- <p class="card-text">{{profile.bio}}</p> -->
+              <p class="card-text">{{image.pub_date}}</p>
+              <p class="card-text">{{comment.comment}}</p>
+              <p class="card-text">{{image.name}}</p>
+            </div>
+          </div>
         </div>
+        <br>
+        {% empty %}
+        <div class="row">
+          <h2 class="text-center">There No instas</h2>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="col-md-3 avat">
+        <h3>Profile</h3>
+        {% for user in users %}
+        <img src="{{user.photo.url}}"class="card-img-top"alt="{{user.user}}"width="40%" height="40%"/>
+        <p>{{user.user}} <button class="btn btn-success">Follow</button></p>
+        <br>
+        {% empty %}
+        <div class="row">
+          <h2 class="text-center">There No available users</h2>
+        </div>
+        {% endfor %}
+        <div class="container-fluid">
+          <form action="{%url 'index'%}" method="post">
+            {%csrf_token%} {% bootstrap_form form layout='inline' %}
+            <input type="submit" value="Subscribe"/>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}
