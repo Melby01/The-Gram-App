@@ -45,7 +45,7 @@ class Comment(models.Model):
         
     def __str__(self):
         return self.comment  
-    
+
 class Profile(models.Model):
     Image = models.ImageField(upload_to = 'images/')
     bio = models.CharField(max_length =200)
@@ -66,3 +66,8 @@ class Profile(models.Model):
     
     def __str__(self):
         return self.bio 
+    
+class Follow(models.Model):
+    user = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE)
+    follow_user = models.ForeignKey(User, related_name='follow_user', on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
