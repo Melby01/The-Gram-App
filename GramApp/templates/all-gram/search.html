@@ -1,14 +1,23 @@
-{% extends 'all-gram/base.html' %} 
+{% extends 'all-gram/base.html' %}
+
 {% block content %}
+
 <div class="container">
+    <div class="form-group">
+        <form action="{% url 'search_results' %}" method="post">{% csrf_token %}
+            <div style="width: 100%" class="search-container">
 
-  <div class="row">
-    {% if images %}
-      <h2>Found {{ images|length }} searched term {{message}}</h2>
+        </form>
+    </div>
+    <br>
+    {% if results %}
+    {% for result in results %}
+    {% endfor %}
     {% else %}
-      <h2> Found 0 results for the search term {{message}}</h2>
+    <div class="alert alert-info" role="alert">
+        No result, please try to search again!
+    </div>
     {% endif %}
-
-     
-  </div>
 </div>
+
+{% endblock %}

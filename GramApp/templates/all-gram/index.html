@@ -1,0 +1,43 @@
+
+{%extends 'all-gram/base.html'%}
+{% load bootstrap3 %}
+{% block content %}
+{{ block.super}}
+<div class="container">
+    <div class="row">
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-7">
+                <!-- Looping through images   -->
+                {% for image in images %}
+                <div class="card mb-3 card1">
+                    <div class="row">
+
+                        <img src="{{image.image.url}}" class="card-img-top" alt="{{image.author}}" height="500px"
+                            width="450px">
+                        <div class="">
+                            <li class="list-group-item">
+                                <a href="{%url 'comments' %}"><i class="far fa-comment">comment</i>{{comments}}</a>
+                            </li>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <p style="font-size:20px;" class="card-text">Author:{{image.author}}</p>
+                            <p style="font-size:20px;">Caption:{{ image.content }}</p>
+                            <p style="font-size:20px;">likes:{{ image.likes }}</p>
+                            <p style="font-size:20px;">Dislikes:{{ image.dislikes }}</p>
+                        </div>
+                    </div>
+                </div><br><br>
+                {% empty %}
+                <div class="row">
+                    <h2 class="text-center">There No Image Items</h2>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
