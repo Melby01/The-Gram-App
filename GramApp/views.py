@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404,HttpResponseRedirect
 import datetime as dt
 from .email import send_welcome_email
 from django.contrib.auth.decorators import login_required
-from .models import  Image,Profile,new_Comment
+from .models import  Image,Profile,Comment
 from .forms import NewPostForm ,GrammLetterForm,ProfileForm,NewsLetterForm,CommentForm
 
 @login_required(login_url='/accounts/login/')
@@ -17,7 +17,7 @@ def index(request):
         if form.is_valid():
             name = form.cleaned_data['your_name']
             email = form.cleaned_data['email']
-            recipient = NewsLetterRecipients(name = name,email = email)
+            recipient = NewsLetterForm(name = name,email = email)
             recipient.save()
             send_welcome_email(name,email)
             HttpResponseRedirect('index')
@@ -56,7 +56,7 @@ def insta_today(request):
         if form.is_valid():
             name = form.cleaned_data['your_name']
             email = form.cleaned_data['email']
-            recipient = GrammLetterRecipients(name = name,email =email)
+            recipient = GrammLetterForm(name = name,email =email)
             recipient.save()
             send_welcome_email(name,email)
             
@@ -64,6 +64,7 @@ def insta_today(request):
     else:
         form = GrammLetterForm()
     return render(request, 'all-gram/today-gram.html', {"date": date,"letterForm":form})
+
 
 def convert_dates(dates):
     

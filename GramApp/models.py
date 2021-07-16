@@ -36,7 +36,7 @@ class Image(models.Model):
 
 
 class Profile(models.Model):
-    photo = models.ImageField(upload_to = 'images/')
+    image = models.ImageField(upload_to = 'images/')
     bio = models.CharField(max_length =200)
     name = models.OneToOneField(User,on_delete=models.CASCADE)
 
@@ -49,7 +49,7 @@ class Profile(models.Model):
     @classmethod
     def search_by_name(cls,search_term):
         news = cls.objects.filter(title__icontains=search_term)
-        return photo
+        return Image
     def __str__(self):
         return self.bio 
     
@@ -60,7 +60,7 @@ class tags(models.Model):
         return self.name  
       
 class Comment(models.Model):
-    comment = models.TextField(blank=True)
+    content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ForeignKey(Image, on_delete=models.CASCADE )
     pub_date = models.DateTimeField(auto_now_add=True)

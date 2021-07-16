@@ -23,7 +23,7 @@
   <!-- Looping through news end   -->
 <div class="container-fluid">
 
-  <form  action="{%url 'instaToday'%}" method="post">
+  <form  action="{%url 'instaToday' %}" method="post">
     {%csrf_token%}
 
     {% bootstrap_form letterForm layout='inline' %}
@@ -32,7 +32,7 @@
 </div>
   {% empty %}
   <div class="row">
-    <h2 class="text-center">There are no instas</h2>
+    <h2 class="text-center">Ooopps!!!! There are no instagram updates</h2>
   </div>
   {% endfor %}
 

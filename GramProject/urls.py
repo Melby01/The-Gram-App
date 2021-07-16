@@ -22,6 +22,6 @@ urlpatterns = [
     url(r'^accounts/', include('django_registration.backends.one_step.urls')),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url("logout", views.logout_then_login, name= "logout"),
-    url(r'',include('GramApp.urls')),
+    url(r'',include('GramApp.url')),
     
 ]
