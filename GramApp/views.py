@@ -4,7 +4,8 @@ import datetime as dt
 from .email import send_welcome_email
 from django.contrib.auth.decorators import login_required
 from .models import  Image,Profile,Comment
-from .forms import NewPostForm ,GrammLetterForm,ProfileForm,NewsLetterForm,CommentForm
+from .forms import NewPostForm ,ProfileForm,NewsLetterForm,CommentForm,Registration
+from django.contrib import messages
 
 @login_required(login_url='/accounts/login/')
 def index(request):
@@ -17,7 +18,7 @@ def index(request):
         if form.is_valid():
             name = form.cleaned_data['your_name']
             email = form.cleaned_data['email']
-            recipient = NewsLetterForm(name = name,email = email)
+            recipient = NewsLetterRecipients(name = name,email = email)
             recipient.save()
             send_welcome_email(name,email)
             HttpResponseRedirect('index')
@@ -39,33 +40,7 @@ def new_post(request):
         form = NewPostForm()
     return render(request, 'all-gram/post.html', {"form": form})
 
-def insta_today(request):
-    date = dt.date.today()
-
-    # FUNCTION TO CONVERT DATE OBJECT TO FIND EXACT DAY
-    day = convert_dates(date)
-    html = f'''
-        <html>
-            <body>
-                <h1>Instas for {day} {date.day}-{date.month}-{date.year}</h1>
-            </body>
-        </html>
-            '''
-    if request.method == 'POST':
-        form = GrammLetterForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['your_name']
-            email = form.cleaned_data['email']
-            recipient = GrammLetterForm(name = name,email =email)
-            recipient.save()
-            send_welcome_email(name,email)
-            
-            HttpResponseRedirect('insta_today')
-    else:
-        form = GrammLetterForm()
-    return render(request, 'all-gram/today-gram.html', {"date": date,"letterForm":form})
-
-
+ 
 def convert_dates(dates):
     
     # Function that gets the weekday number for the date.
@@ -93,8 +68,9 @@ def past_days_insta(request,past_date):
         </html>
             '''
     if date == dt.date.today():
-        return redirect(insta_today)    
+        return redirect(news_of_day)    
     return render(request, 'all-gram/past-gram.html', {"date": date})
+
 def search_results(request):
     
     if 'image' in request.GET and request.GET["image"]:
@@ -102,7 +78,7 @@ def search_results(request):
         searched_images = Image.search_by_name(search_term)
         message = f"{search_term}"
 
-        return render(request, 'all-gram/search.html',{"message":message,"images": searched_images})
+        return render(request, 'images/search.html',{"message":message,"images": searched_images})
 
     else:
         message = "You haven't searched for any term"
@@ -137,3 +113,17 @@ def new_comment(request):
     else:
         form = CommentForm()
     return render(request, 'new_comment.html', {"form": form})
+ 
+def register(request):
+    if request.method == 'POST':
+     form = Registration(request.POST)
+     if form.is_valid():
+      form.save()
+      email = form.cleaned_data['email']
+      username = form.cleaned_data.get('username')
+
+      messages.success(request,f'Account for {username} created,you can now login')
+      return redirect('login')
+    else:
+      form = Registration()
+    return render(request,'registration/registration_form.html',{"form":form})
