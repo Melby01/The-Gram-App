@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404,HttpResponseRedirect
 import datetime as dt
 from .email import send_welcome_email
 from django.contrib.auth.decorators import login_required
-from .models import  Image,Profile,Comment
+from .models import  Image,Profile,new_Comment
 from .forms import NewPostForm ,GrammLetterForm,ProfileForm,NewsLetterForm,CommentForm
 
 @login_required(login_url='/accounts/login/')
@@ -23,7 +23,7 @@ def index(request):
             HttpResponseRedirect('index')
     else:
         form = NewsLetterForm()
-    return render(request, 'all-gramm/index.html', {"date": date,"images":images, "users":users, "form": form})
+    return render(request, 'all-gram/index.html', {"date": date,"images":images, "users":users, "form": form})
 
 @login_required(login_url='/accounts/login/')
 def new_post(request):
@@ -37,7 +37,7 @@ def new_post(request):
         return redirect('new-post')
     else:
         form = NewPostForm()
-    return render(request, 'all-gramm/post.html', {"form": form})
+    return render(request, 'all-gram/post.html', {"form": form})
 
 def insta_today(request):
     date = dt.date.today()
@@ -63,7 +63,7 @@ def insta_today(request):
             HttpResponseRedirect('insta_today')
     else:
         form = GrammLetterForm()
-    return render(request, 'all-gram/today-gramm.html', {"date": date,"letterForm":form})
+    return render(request, 'all-gram/today-gram.html', {"date": date,"letterForm":form})
 
 def convert_dates(dates):
     
